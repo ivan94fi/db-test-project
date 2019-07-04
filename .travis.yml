@@ -4,8 +4,9 @@ matrix:
    include:
       # always build this environment
       - jdk: openjdk8
+      - jdj: openjdk11
         env: 
-           - ADDITIONAL_MAVEN_ARGS="-P enable-jacoco -P enable-mutation-testing"
+           # - ADDITIONAL_MAVEN_ARGS="-P enable-jacoco -P enable-mutation-testing"
            - ADDITIONAL_MAVEN_ARGS=""
 
 # skip installation step

@@ -13,4 +13,5 @@ cache:
       - $HOME/.m2
 
 script:
-   - mvn -f db-test-parent/pom.xml clean verify $ADDITIONAL_MAVEN_ARGS coveralls:report
+   - mvn -f db-test-aggregator/pom.xml clean verify $ADDITIONAL_MAVEN_ARGS coveralls:report
+

@@ -1,14 +1,14 @@
 package com.example;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 public class Greeter {
 
-    public static void main(String[] args) {
-        Greeter gr = new Greeter();
-        gr.method1("Hello World!");
-    }
+    private static final Logger LOGGER = LogManager.getLogger(Greeter.class);
 
     public String method1(String str) {
-        System.out.println(str);
+        LOGGER.info(str);
         return str;
     }
 

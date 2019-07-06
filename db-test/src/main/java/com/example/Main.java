@@ -12,6 +12,12 @@ import org.apache.logging.log4j.Logger;
 public class Main {
     private static final Logger LOGGER = LogManager.getLogger(Main.class);
 
+    // DONE: use dependencyManagement section.
+
+    // TODO: missing try/catch on transactions.
+    // TODO: use BOMs to import dependecies (e.g. log4j).
+    // TODO: use an aggregator project.
+    // TODO: construct a BOM.
     public static void main(String[] args) {
 
         LOGGER.info("MAGI FROM LOGGER");
@@ -36,7 +42,7 @@ public class Main {
         List<Student> result = entityManager
                 .createQuery("from Student", Student.class).getResultList();
         for (Student stud : result) {
-            System.out.println("Student(" + stud.getFirstName() + ", "
+            LOGGER.info("Student(" + stud.getFirstName() + ", "
                     + stud.getLastName() + ")");
         }
         entityManager.getTransaction().commit();

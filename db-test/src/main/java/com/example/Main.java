@@ -13,10 +13,10 @@ public class Main {
     private static final Logger LOGGER = LogManager.getLogger(Main.class);
 
     // DONE: use dependencyManagement section.
+    // DONE: use an aggregator project.
 
     // TODO: missing try/catch on transactions.
     // TODO: use BOMs to import dependecies (e.g. log4j).
-    // TODO: use an aggregator project.
     // TODO: construct a BOM.
     public static void main(String[] args) {
 

@@ -2,7 +2,7 @@
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd"
   version="2.0">
-  <persistence-unit name="com.example">
+  <persistence-unit name="com.example.h2_unit">
     <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
 
     <class>com.example.Student</class>
@@ -21,4 +21,26 @@
       <property name="hibernate.hbm2ddl.auto" value="create" />
     </properties>
   </persistence-unit>
+  
+  
+    <persistence-unit name="com.example.postgres_unit">
+    <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+
+    <class>com.example.Student</class>
+
+    <properties>
+      <property name="javax.persistence.jdbc.driver"
+        value="org.h2.Driver" />
+      <property name="javax.persistence.jdbc.url"
+        value="jdbc:h2:mem:db1;DB_CLOSE_DELAY=-1;MVCC=TRUE" />
+      <property name="javax.persistence.jdbc.user" value="ivan94fi" />
+      <property name="javax.persistence.jdbc.password"
+        value="LO3091TETR" />
+
+      <property name="hibernate.format_sql" value="true" />
+
+      <property name="hibernate.hbm2ddl.auto" value="create" />
+    </properties>
+  </persistence-unit>
+  
 </persistence>

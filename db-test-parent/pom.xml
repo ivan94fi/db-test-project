@@ -83,58 +83,16 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-enforcer-plugin</artifactId>
-        <executions>
-          <execution>
-            <id>enforce-maven</id>
-            <goals>
-              <goal>enforce</goal>
-            </goals>
-            <configuration>
-              <rules>
-                <!-- Require the minimum version of maven to build. -->
-                <requireMavenVersion>
-                  <version>3.0.5</version>
-                </requireMavenVersion>
-                <!-- Check that all mentioned plugins versions are specified exactly 
-                  (for reproducibility) -->
-                <requirePluginVersions>
-                  <message>Some of the plugins versions are not specified.</message>
-                  <phases>clean,compile,deploy,site</phases>
-                </requirePluginVersions>
-              </rules>
-            </configuration>
-          </execution>
-        </executions>
       </plugin>
+
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>build-helper-maven-plugin</artifactId>
-        <executions>
-          <execution>
-            <id>add-test-source</id>
-            <phase>generate-test-sources</phase>
-            <goals>
-              <goal>add-test-source</goal>
-            </goals>
-            <configuration>
-              <sources>
-                <source>src/it/java</source>
-              </sources>
-            </configuration>
-          </execution>
-        </executions>
       </plugin>
+
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-failsafe-plugin</artifactId>
-        <executions>
-          <execution>
-            <goals>
-              <goal>integration-test</goal>
-              <goal>verify</goal>
-            </goals>
-          </execution>
-        </executions>
       </plugin>
     </plugins>
 
@@ -145,6 +103,28 @@
         <plugin>
           <artifactId>maven-enforcer-plugin</artifactId>
           <version>3.0.0-M2</version>
+          <executions>
+            <execution>
+              <id>enforce-maven</id>
+              <goals>
+                <goal>enforce</goal>
+              </goals>
+              <configuration>
+                <rules>
+                  <!-- Require the minimum version of maven to build. -->
+                  <requireMavenVersion>
+                    <version>3.0.5</version>
+                  </requireMavenVersion>
+                  <!-- Check that all mentioned plugins versions are specified exactly 
+                    (for reproducibility) -->
+                  <requirePluginVersions>
+                    <message>Some of the plugins versions are not specified.</message>
+                    <phases>clean,compile,deploy,site</phases>
+                  </requirePluginVersions>
+                </rules>
+              </configuration>
+            </execution>
+          </executions>
         </plugin>
 
         <plugin>
@@ -152,6 +132,9 @@
           <artifactId>versions-maven-plugin</artifactId>
           <version>2.7</version>
           <configuration>
+            <!-- FIXME: il path è reltivo al figlio ma penso debba essere una cosa 
+              a livello di padre -->
+            <!-- => Il problema è che il padre non ha la cartella src/main/resources -->
             <rulesUri>file:///${project.basedir}/../db-test/src/main/resources/versions-maven-plugin-rules.xml</rulesUri>
           </configuration>
         </plugin>
@@ -172,10 +155,6 @@
                 <goal>report</goal>
               </goals>
             </execution>
-            <!-- <execution> <id>jacoco-check</id> <goals> <goal>check</goal> </goals> 
-              <configuration> <rules> <rule> <element>PACKAGE</element> <limits> <limit> <counter>LINE</counter> 
-              <value>COVEREDRATIO</value> <minimum>0.50</minimum> </limit> </limits> </rule> </rules> 
-              </configuration> </execution> -->
           </executions>
         </plugin>
 
@@ -201,12 +180,29 @@
             </mutators>
             <mutationThreshold>85</mutationThreshold>
           </configuration>
+          <executions>
+            <execution>
+              <goals>
+                <goal>mutationCoverage</goal>
+              </goals>
+              <phase>verify</phase>
+            </execution>
+          </executions>
+
         </plugin>
 
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-failsafe-plugin</artifactId>
           <version>2.22.1</version>
+          <executions>
+            <execution>
+              <goals>
+                <goal>integration-test</goal>
+                <goal>verify</goal>
+              </goals>
+            </execution>
+          </executions>
         </plugin>
 
         <!-- Build helper maven plugin -->
@@ -214,6 +210,21 @@
           <groupId>org.codehaus.mojo</groupId>
           <artifactId>build-helper-maven-plugin</artifactId>
           <version>3.0.0</version>
+          <executions>
+            <execution>
+              <id>add-test-source</id>
+              <phase>generate-test-sources</phase>
+              <goals>
+                <goal>add-test-source</goal>
+              </goals>
+              <configuration>
+                <sources>
+                  <source>src/it/java</source>
+                </sources>
+              </configuration>
+            </execution>
+          </executions>
+
         </plugin>
 
         <!-- Docker maven plugin -->
@@ -315,14 +326,6 @@
           <plugin>
             <groupId>org.pitest</groupId>
             <artifactId>pitest-maven</artifactId>
-            <executions>
-              <execution>
-                <goals>
-                  <goal>mutationCoverage</goal>
-                </goals>
-                <phase>verify</phase>
-              </execution>
-            </executions>
           </plugin>
         </plugins>
       </build>

@@ -15,14 +15,14 @@ public class Main {
     // DONE: use dependencyManagement section.
     // DONE: use an aggregator project.
     // DONE: use BOMs to import dependecies (e.g. log4j).
+    // DONE: ********** ATTENZIONE: configurazione in pluginmanagement,
+    // attivazione in build!!! *************
 
     // TODO: missing try/catch on transactions.
     // TODO: construct a BOM.
     // TODO: finire integration tests: da mettere plugin docker e farlo partire
     // quando si fa integration tests.
     // TODO: configurare persistence.xml con postgres.
-    // TODO ********** ATTENZIONE: configurazione in pluginmanagement,
-    // attivazione in build!!! *************
     public static void main(String[] args) {
 
         LOGGER.info("MAGI FROM LOGGER");

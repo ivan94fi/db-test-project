@@ -4,6 +4,7 @@ import static org.junit.Assert.assertEquals;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.function.Consumer;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -11,26 +12,47 @@ import javax.persistence.Persistence;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.junit.After;
+import org.junit.AfterClass;
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 
 public class StudentIT {
 
-    private EntityManagerFactory entityManagerFactory;
+    private static EntityManagerFactory entityManagerFactory;
     private static final Logger LOGGER = LogManager
             .getLogger(StudentTest.class);
 
-    @Before
-    public void setUp() throws Exception {
+    private static void doInTransaction(
+            final Consumer<EntityManager> consumer) {
+        final EntityManager em = entityManagerFactory.createEntityManager();
+        em.getTransaction().begin();
+        try {
+            consumer.accept(em);
+            em.getTransaction().commit();
+        } catch (final Exception exception) {
+            em.getTransaction().rollback();
+            throw exception;
+        }
+    }
+
+    @BeforeClass
+    public static void setUp() throws Exception {
         entityManagerFactory = Persistence
-                .createEntityManagerFactory("com.example.h2_unit");
+                .createEntityManagerFactory("com.example.postgres_unit");
 
     }
 
-    @After
-    public void tearDown() throws Exception {
+    @AfterClass
+    public static void tearDown() throws Exception {
         entityManagerFactory.close();
+    }
+
+    @Before
+    public void before() {
+        doInTransaction(em -> {
+            em.createQuery("DELETE FROM Student").executeUpdate();
+        });
     }
 
     @Test

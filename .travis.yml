@@ -4,7 +4,7 @@ matrix:
    include:
       - jdk: openjdk8
         env: 
-           - ADDITIONAL_MAVEN_ARGS="-P enable-jacoco"  # -P enable-mutation-testing
+           - ADDITIONAL_MAVEN_ARGS="-P enable-jacoco -P enable-mutation-testing -P enable-coveralls"
 
 install: true
 
@@ -13,5 +13,5 @@ cache:
       - $HOME/.m2
 
 script:
-   - mvn -f db-test-aggregator/pom.xml clean verify $ADDITIONAL_MAVEN_ARGS coveralls:report
+   - mvn -f db-test-aggregator/pom.xml clean verify $ADDITIONAL_MAVEN_ARGS
 

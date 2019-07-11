@@ -1,17 +1,18 @@
 language: java
-
 matrix:
-   include:
-      - jdk: openjdk8
-        env: 
-           - ADDITIONAL_MAVEN_ARGS="-P enable-jacoco -P enable-mutation-testing -P enable-coveralls"
-
+    include:
+        -
+            jdk: openjdk8
+            env: 'ADDITIONAL_MAVEN_ARGS="-P enable-jacoco -P enable-mutation-testing -P enable-coveralls"'
 install: true
-
 cache:
-   directories:
-      - $HOME/.m2
-
+    directories:
+        - $HOME/.m2
+        - $HOME/.sonar/cache
+addons:
+    sonarcloud:
+        organization: ivan94fi
+        token:
+            secure: BXSFTNWNbIsePzps30fbJlrOCe1w2AdvtaD+GPQE1U4dePTRCHxEAV0PDxcghFb+TiIZVJRSkqCnHqlUY3X106+RMhFnopUqeQuWmYnstd0jgS+QPj5PPjaO/FrfJoZ1nFwLsDZE74A59FQDcPUidIvHRS2nQQ9IOb1O8FI5lxRuOhjLEOYFLYbecrR91KVg88hmK1dETTtfxzTtyFlJ1rPJ0RU9JeNuZDI3VOyGAqKUQZ9XUKVK9VZzCLdxhFfqNIpNBG5wYOwPi2TvCedfpj4xeYdAdVtgAdy6vRHyNlUSJ5KlvOlsXNs2MeHTTRtyyFqOT7Aa2rfGZbI6KQpMPZeCQ47lcSFQtpVdNPSwVcOK32iV5UykWMxTmlIxcd/cqMmjk3tTLLg3MQPZoB31XHL9TQzbdAVrFDp2qIZnP4+u1zu+YFiBl8S1MPJPyk3FEqcECqgtnTlBWRZT/awAHjyNKyK4SjitC8IWN+6VFi6BtUtt30KZCs60qtrT1uCC1IYZMsjMoFZokZcnZL1k5I+E6mz0Q0ftfoDufbDsCL5SOrYUaXdI1W4O7gJ2IJgKHOkR+9EYtcHsflE3D4vkjaecHrJ76D+x8gZbV0p8NWIyYXqPcYP37GFyGaN7+Y4rFq8EN03vLhwgN1iX7zwTPIryI+fJgxWLDm18b0j6xiI=
 script:
-   - mvn -f db-test-aggregator/pom.xml clean verify $ADDITIONAL_MAVEN_ARGS
-
+    - 'mvn -f db-test-aggregator/pom.xml clean verify $ADDITIONAL_MAVEN_ARGS sonar:sonar'

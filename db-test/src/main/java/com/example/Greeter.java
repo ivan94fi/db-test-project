@@ -12,4 +12,9 @@ public class Greeter {
         return str;
     }
 
+    public String magi() {
+        String str = "magi";
+        return str;
+    }
+
 }

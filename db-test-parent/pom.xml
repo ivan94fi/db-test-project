@@ -16,7 +16,7 @@
     <log4j.version>2.11.1</log4j.version>
     <hibernate.version>5.4.3.Final</hibernate.version>
     <h2-driver.version>1.4.199</h2-driver.version>
-    <postgresql-driver.version>42.2.6</postgresql-driver.version>
+    <postgresql-driver.version>42.2.25</postgresql-driver.version>
     <junit.version>4.12</junit.version>
     <assertj.version>3.11.1</assertj.version>
     <mockito.version>2.28.2</mockito.version>
